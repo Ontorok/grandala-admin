@@ -1,31 +1,39 @@
-import "./newProduct.css";
+import React from 'react';
+import classes from './NewProduct.module.css';
 
-export default function NewProduct() {
+const NewProduct = function () {
   return (
-    <div className="newProduct">
-      <h1 className="addProductTitle">New Product</h1>
-      <form className="addProductForm">
-        <div className="addProductItem">
-          <label>Image</label>
-          <input type="file" id="file" />
+    <div className={classes.newProduct}>
+      <h1 className={classes.addProductTitle}>New Product</h1>
+      <form className={classes.addProductForm} autoComplete="off">
+        <div className={classes.addProductItem}>
+          <label htmlFor="file">Image</label>
+          <input type="file" name="file" id="file" />
         </div>
-        <div className="addProductItem">
-          <label>Name</label>
-          <input type="text" placeholder="Apple Airpods" />
+
+        <div className={classes.addProductItem}>
+          <label htmlFor="productname">Name</label>
+          <input type="text" name="productname" id="productname" placeholder="Apple Airpods" />
         </div>
-        <div className="addProductItem">
-          <label>Stock</label>
-          <input type="text" placeholder="123" />
+
+        <div className={classes.addProductItem}>
+          <label htmlFor="instock">Stock</label>
+          <input type="text" name="instock" id="instock" placeholder="123" />
         </div>
-        <div className="addProductItem">
-          <label>Active</label>
-          <select name="active" id="active">
+
+        <div className={classes.addProductItem}>
+          <label htmlFor="status">Status</label>
+          <select name="status" id="status">
             <option value="yes">Yes</option>
             <option value="no">No</option>
           </select>
         </div>
-        <button className="addProductButton">Create</button>
+        <button type="button" className={classes.addProductButton}>
+          Create
+        </button>
       </form>
     </div>
   );
-}
+};
+
+export default NewProduct;

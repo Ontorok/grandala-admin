@@ -1,75 +1,100 @@
-import { Link } from "react-router-dom";
-import "./product.css";
-import Chart from "../../components/chart/Chart"
-import {productData} from "../../dummyData"
-import { Publish } from "@material-ui/icons";
+/**
+ * Title: Single product
+ * Description: Single Product
+ * Author: Nasir Ahmed
+ * Date: 01-January-2022
+ * Modified: 01-January-2022
+ * */
 
-export default function Product() {
+import { Publish } from '@mui/icons-material';
+import React from 'react';
+import { Link } from 'react-router-dom';
+import Rechart from '../../components/chart/Rechart';
+import { productAnalytics } from '../../fake-data/product';
+import classes from './Product.module.css';
+
+const Product = function () {
   return (
-    <div className="product">
-      <div className="productTitleContainer">
-        <h1 className="productTitle">Product</h1>
-        <Link to="/newproduct">
-          <button className="productAddButton">Create</button>
+    <div className={classes.product}>
+      <div className={classes.productTitleContainer}>
+        <h1 className={classes.productTitle}>Product</h1>
+        <Link to="/newProduct">
+          <button type="button" className={classes.productAddBtn}>
+            Create
+          </button>
         </Link>
       </div>
-      <div className="productTop">
-          <div className="productTopLeft">
-              <Chart data={productData} dataKey="Sales" title="Sales Performance"/>
+      <div className={classes.productTop}>
+        <div className={classes.productTopLeft}>
+          <Rechart title="Sales Performance" data={productAnalytics} dataKey="Sales" />
+        </div>
+        <div className={classes.productTopRight}>
+          <div className={classes.productInfoTop}>
+            <img
+              src="https://images.pexels.com/photos/788946/pexels-photo-788946.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+              alt="Apple Airpods"
+              className={classes.productInfoImage}
+            />
+            <span className={classes.productName}>Apple Airpods</span>
           </div>
-          <div className="productTopRight">
-              <div className="productInfoTop">
-                  <img src="https://images.pexels.com/photos/7156886/pexels-photo-7156886.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500" alt="" className="productInfoImg" />
-                  <span className="productName">Apple Airpods</span>
-              </div>
-              <div className="productInfoBottom">
-                  <div className="productInfoItem">
-                      <span className="productInfoKey">id:</span>
-                      <span className="productInfoValue">123</span>
-                  </div>
-                  <div className="productInfoItem">
-                      <span className="productInfoKey">sales:</span>
-                      <span className="productInfoValue">5123</span>
-                  </div>
-                  <div className="productInfoItem">
-                      <span className="productInfoKey">active:</span>
-                      <span className="productInfoValue">yes</span>
-                  </div>
-                  <div className="productInfoItem">
-                      <span className="productInfoKey">in stock:</span>
-                      <span className="productInfoValue">no</span>
-                  </div>
-              </div>
+          <div className={classes.productInfoBottom}>
+            <div className={classes.productInfoItem}>
+              <span className={classes.productInfoKey}>id:</span>
+              <span className={classes.productInfoValue}>123</span>
+            </div>
+            <div className={classes.productInfoItem}>
+              <span className={classes.productInfoKey}>sales:</span>
+              <span className={classes.productInfoValue}>1237</span>
+            </div>
+            <div className={classes.productInfoItem}>
+              <span className={classes.productInfoKey}>active:</span>
+              <span className={classes.productInfoValue}>yes</span>
+            </div>
+            <div className={classes.productInfoItem}>
+              <span className={classes.productInfoKey}>in stock:</span>
+              <span className={classes.productInfoValue}>no</span>
+            </div>
           </div>
+        </div>
       </div>
-      <div className="productBottom">
-          <form className="productForm">
-              <div className="productFormLeft">
-                  <label>Product Name</label>
-                  <input type="text" placeholder="Apple AirPod" />
-                  <label>In Stock</label>
-                  <select name="inStock" id="idStock">
-                      <option value="yes">Yes</option>
-                      <option value="no">No</option>
-                  </select>
-                  <label>Active</label>
-                  <select name="active" id="active">
-                      <option value="yes">Yes</option>
-                      <option value="no">No</option>
-                  </select>
-              </div>
-              <div className="productFormRight">
-                  <div className="productUpload">
-                      <img src="https://images.pexels.com/photos/7156886/pexels-photo-7156886.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500" alt="" className="productUploadImg" />
-                      <label for="file">
-                          <Publish/>
-                      </label>
-                      <input type="file" id="file" style={{display:"none"}} />
-                  </div>
-                  <button className="productButton">Update</button>
-              </div>
-          </form>
+      <div className={classes.productBottom}>
+        <form className={classes.productForm}>
+          <div className={classes.productFormLeft}>
+            <label htmlFor="productname">Product Name</label>
+            <input type="text" name="productname" id="productname" placeholder="Apple Airpods" />
+
+            <label htmlFor="instock">Product Name</label>
+            <select name="instock" id="instock" defaultValue="yes">
+              <option value="yes">Yes</option>
+              <option value="no">No</option>
+            </select>
+
+            <label htmlFor="status">Product Name</label>
+            <select name="status" id="status" defaultValue="yes">
+              <option value="yes">Yes</option>
+              <option value="no">No</option>
+            </select>
+          </div>
+          <div className={classes.productFormRight}>
+            <div className={classes.productUpload}>
+              <img
+                src="https://images.pexels.com/photos/788946/pexels-photo-788946.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+                alt="product"
+                className={classes.productUploadImg}
+              />
+              <label htmlFor="file">
+                <Publish />
+              </label>
+              <input type="file" name="file" id="file" style={{ display: 'none' }} />
+            </div>
+            <button type="button" className={classes.productButton}>
+              Upldate
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   );
-}
+};
+
+export default Product;

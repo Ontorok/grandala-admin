@@ -1,19 +1,21 @@
-import Chart from "../../components/chart/Chart";
-import FeaturedInfo from "../../components/featuredInfo/FeaturedInfo";
-import "./home.css";
-import { userData } from "../../dummyData";
-import WidgetSm from "../../components/widgetSm/WidgetSm";
-import WidgetLg from "../../components/widgetLg/WidgetLg";
+import React from 'react';
+import Featured from '../../parts/featured/Featured';
+import UserChart from '../../parts/userChart/UserChart';
+import WidgetLg from '../../parts/widgetLg/WidgetLg';
+import WidgetSm from '../../parts/widgetSm/WidgetSm';
+import classes from './Home.module.css';
 
-export default function Home() {
+const Home = function () {
   return (
-    <div className="home">
-      <FeaturedInfo />
-      <Chart data={userData} title="User Analytics" grid dataKey="Active User"/>
-      <div className="homeWidgets">
-        <WidgetSm/>
-        <WidgetLg/>
+    <div className={classes.home}>
+      <Featured />
+      <UserChart />
+      <div className={classes.homeWidgets}>
+        <WidgetSm />
+        <WidgetLg />
       </div>
     </div>
   );
-}
+};
+
+export default Home;

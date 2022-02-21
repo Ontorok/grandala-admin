@@ -1,9 +1,9 @@
 /**
- * Title: Product List page
- * Description: Product List page
+ * Title: User List
+ * Description: User List
  * Author: Nasir Ahmed
- * Date: 01-January-2022
- * Modified: 01-January-2022
+ * Date: 07-December-2021
+ * Modified: 07-December-2021
  * */
 
 import { DeleteOutline, EditOutlined } from '@mui/icons-material';
@@ -11,10 +11,10 @@ import { IconButton } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { rows } from '../../fake-data/product';
-import classes from './ProductList.module.css';
+import rows from '../../fake-data/userList';
+import classes from './UserList.module.css';
 
-const ProductList = function () {
+const UserList = function () {
   const [state, setState] = useState(rows);
 
   const handleDelete = (id) => {
@@ -23,24 +23,28 @@ const ProductList = function () {
 
   const columns = [
     {
-      field: 'name',
-      headerName: 'Product',
+      field: 'username',
+      headerName: 'User name',
       width: 200,
       renderCell: (params) => (
-        <div className={classes.productListItem}>
-          <img className={classes.productListImage} src={params.row.img} alt={params.row.name} />
-          {params.row.name}
+        <div className={classes.userListUser}>
+          <img
+            className={classes.userListImage}
+            src={params.row.avatar}
+            alt={params.row.username}
+          />
+          {params.row.username}
         </div>
       )
     },
     {
-      field: 'price',
-      headerName: 'Price',
+      field: 'email',
+      headerName: 'Email',
       width: 200
     },
     {
-      field: 'stock',
-      headerName: 'Stock',
+      field: 'transaction',
+      headerName: 'Transaction',
       description: 'This column has a value getter and is not sortable.',
       sortable: false,
       width: 200,
@@ -61,7 +65,7 @@ const ProductList = function () {
       width: 200,
       renderCell: (param) => (
         <>
-          <Link to={`/product/${param.row.id}`}>
+          <Link to={`/users/${param.row.id}`}>
             <IconButton aria-label="edit">
               <EditOutlined color="success" />
             </IconButton>
@@ -75,7 +79,7 @@ const ProductList = function () {
     }
   ];
   return (
-    <div className={classes.productList}>
+    <div className={classes.userList}>
       <DataGrid
         autoPageSize
         rows={state}
@@ -89,4 +93,4 @@ const ProductList = function () {
   );
 };
 
-export default ProductList;
+export default UserList;
