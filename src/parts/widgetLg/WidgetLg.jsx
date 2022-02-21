@@ -1,5 +1,7 @@
 import clsx from 'clsx';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { format } from 'timeago.js';
+import { userRequest } from '../../services/config';
 import classes from './WidgetLg.module.css';
 
 const Button = function ({ type }) {
@@ -29,6 +31,21 @@ const Button = function ({ type }) {
 };
 
 const WidgetLg = function () {
+  const [orders, setOrders] = useState([]);
+
+  useEffect(() => {
+    const fetchOrders = async () => {
+      try {
+        const res = await userRequest.get('/order');
+        console.log(res.data.data);
+        setOrders(res.data.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fetchOrders();
+  }, []);
+
   return (
     <div className={classes.widgetLg}>
       <span className={classes.widgetLgTitle}>Lastes Transactions</span>
@@ -42,69 +59,23 @@ const WidgetLg = function () {
           </tr>
         </thead>
         <tbody>
-          <tr className={classes.widgetLgTr}>
-            <td className={classes.widgetLgUser}>
-              <img
-                src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
-                alt=""
-                className={classes.widgetLgImg}
-              />
-              <span className={classes.widgetLgUserName}>Nasir</span>
-            </td>
-            <td className={classes.widgetLgDate}>04-Dec-2021</td>
-            <td className={classes.widgetLgAmount}>$ 120</td>
-            <td className={classes.widgetLgStatus}>
-              <Button type="approve" />
-            </td>
-          </tr>
-
-          <tr className={classes.widgetLgTr}>
-            <td className={classes.widgetLgUser}>
-              <img
-                src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
-                alt=""
-                className={classes.widgetLgImg}
-              />
-              <span className={classes.widgetLgUserName}>Nasir</span>
-            </td>
-            <td className={classes.widgetLgDate}>04-Dec-2021</td>
-            <td className={classes.widgetLgAmount}>$ 120</td>
-            <td className={classes.widgetLgStatus}>
-              <Button type="pending" />
-            </td>
-          </tr>
-
-          <tr className={classes.widgetLgTr}>
-            <td className={classes.widgetLgUser}>
-              <img
-                src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
-                alt=""
-                className={classes.widgetLgImg}
-              />
-              <span className={classes.widgetLgUserName}>Nasir</span>
-            </td>
-            <td className={classes.widgetLgDate}>04-Dec-2021</td>
-            <td className={classes.widgetLgAmount}>$ 120</td>
-            <td className={classes.widgetLgStatus}>
-              <Button type="decline" />
-            </td>
-          </tr>
-
-          <tr className={classes.widgetLgTr}>
-            <td className={classes.widgetLgUser}>
-              <img
-                src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
-                alt=""
-                className={classes.widgetLgImg}
-              />
-              <span className={classes.widgetLgUserName}>Nasir</span>
-            </td>
-            <td className={classes.widgetLgDate}>04-Dec-2021</td>
-            <td className={classes.widgetLgAmount}>$ 120</td>
-            <td className={classes.widgetLgStatus}>
-              <Button type="approve" />
-            </td>
-          </tr>
+          {orders.map((o) => (
+            <tr key={o._id} className={classes.widgetLgTr}>
+              <td className={classes.widgetLgUser}>
+                <img
+                  src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
+                  alt=""
+                  className={classes.widgetLgImg}
+                />
+                <span className={classes.widgetLgUserName}>{o.userId}</span>
+              </td>
+              <td className={classes.widgetLgDate}>{format(o.createdAt)}</td>
+              <td className={classes.widgetLgAmount}>{o.amount}</td>
+              <td className={classes.widgetLgStatus}>
+                <Button type={o.status} />
+              </td>
+            </tr>
+          ))}
         </tbody>
       </table>
     </div>

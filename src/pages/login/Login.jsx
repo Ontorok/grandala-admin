@@ -23,6 +23,7 @@ const Login = function () {
   const onLogin = (e) => {
     e.preventDefault();
     login(state, dispatch);
+    setState(initialState);
   };
 
   return (
@@ -47,7 +48,7 @@ const Login = function () {
         style={{ padding: '10px', marginBottom: '20px' }}
       />
       <input
-        type="text"
+        type="password"
         placeholder="Password"
         name="password"
         value={state.password}

@@ -13,37 +13,45 @@ import Topbar from './parts/topbar/Topbar';
 import UserList from './parts/userList/UserList';
 
 const App = function () {
+  const {
+    currentUser: { isAdmin }
+  } = JSON.parse(JSON.parse(localStorage.getItem('persist:root')).user);
+
   return (
     <Router>
       <Switch>
         <Route exact path="/login">
           <Login />
         </Route>
-        <Topbar />
-        <div className="container">
-          <Sidebar />
-          <Route exact path="/">
-            <Home />
-          </Route>
-          <Route path="/users">
-            <UserList />
-          </Route>
-          <Route path="/users/:userId">
-            <User />
-          </Route>
-          <Route path="/newUser">
-            <NewUser />
-          </Route>
-          <Route path="/products">
-            <ProductList />
-          </Route>
-          <Route path="/product/:productId">
-            <Product />
-          </Route>
-          <Route path="/newProduct">
-            <NewProduct />
-          </Route>
-        </div>
+        {isAdmin && (
+          <>
+            <Topbar />
+            <div className="container">
+              <Sidebar />
+              <Route exact path="/">
+                <Home />
+              </Route>
+              <Route path="/users">
+                <UserList />
+              </Route>
+              <Route path="/users/:userId">
+                <User />
+              </Route>
+              <Route path="/newUser">
+                <NewUser />
+              </Route>
+              <Route path="/products">
+                <ProductList />
+              </Route>
+              <Route path="/product/:productId">
+                <Product />
+              </Route>
+              <Route path="/newProduct">
+                <NewProduct />
+              </Route>
+            </div>
+          </>
+        )}
       </Switch>
     </Router>
 
