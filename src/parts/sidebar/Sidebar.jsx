@@ -15,7 +15,6 @@ import { NavLink } from 'react-router-dom';
 import './sidebar.css';
 
 const Sidebar = function () {
-  console.log('redner');
   return (
     <div className="sidebar">
       <div className="sidebarWrapper">

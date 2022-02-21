@@ -37,7 +37,6 @@ const WidgetLg = function () {
     const fetchOrders = async () => {
       try {
         const res = await userRequest.get('/order');
-        console.log(res.data.data);
         setOrders(res.data.data);
       } catch (err) {
         console.log(err);
