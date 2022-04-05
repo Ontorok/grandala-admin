@@ -1,133 +1,123 @@
-/* eslint-disable jsx-a11y/label-has-associated-control */
 import {
   CalendarToday,
+  LocationSearching,
   MailOutline,
   PermIdentity,
-  PhoneOutlined,
-  Upload
-} from '@mui/icons-material';
-import React from 'react';
-import { Link } from 'react-router-dom';
-import classes from './User.module.css';
+  PhoneAndroid,
+  Publish,
+} from "@material-ui/icons";
+import { Link } from "react-router-dom";
+import "./user.css";
 
-const User = function () {
+export default function User() {
   return (
-    <div className={classes.user}>
-      <div className={classes.userTitleContainer}>
-        <h1>Edit User</h1>
+    <div className="user">
+      <div className="userTitleContainer">
+        <h1 className="userTitle">Edit User</h1>
         <Link to="/newUser">
-          <button type="button" className={classes.userAddBtn}>
-            ADD
-          </button>
+          <button className="userAddButton">Create</button>
         </Link>
       </div>
-
-      <div className={classes.userContainer}>
-        <div className={classes.userShow}>
-          <div className={classes.userShowTop}>
+      <div className="userContainer">
+        <div className="userShow">
+          <div className="userShowTop">
             <img
-              src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
-              alt="username"
-              className={classes.userShowImg}
+              src="https://images.pexels.com/photos/1152994/pexels-photo-1152994.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
+              alt=""
+              className="userShowImg"
             />
-            <div className={classes.userShowTopTitle}>
-              <span className={classes.userShowUserName}>Nasir Ahmed</span>
-              <span className={classes.userShowUserTitle}>Software Developer</span>
+            <div className="userShowTopTitle">
+              <span className="userShowUsername">Anna Becker</span>
+              <span className="userShowUserTitle">Software Engineer</span>
             </div>
           </div>
-          <div className={classes.userShowBottom}>
-            <span className={classes.userShowBottomTitle}>Account Details</span>
-            <div className={classes.userShwoInfo}>
-              <PermIdentity />
-              <span className={classes.userShwoInfoTitle}>nasir</span>
+          <div className="userShowBottom">
+            <span className="userShowTitle">Account Details</span>
+            <div className="userShowInfo">
+              <PermIdentity className="userShowIcon" />
+              <span className="userShowInfoTitle">annabeck99</span>
             </div>
-            <div className={classes.userShwoInfo}>
-              <CalendarToday />
-              <span className={classes.userShwoInfoTitle}>01-Dec-2000</span>
+            <div className="userShowInfo">
+              <CalendarToday className="userShowIcon" />
+              <span className="userShowInfoTitle">10.12.1999</span>
             </div>
-            <span className={classes.userShowBottomTitle}>Contact Details</span>
-            <div className={classes.userShwoInfo}>
-              <MailOutline />
-              <span className={classes.userShwoInfoTitle}>nasir@mail.com</span>
+            <span className="userShowTitle">Contact Details</span>
+            <div className="userShowInfo">
+              <PhoneAndroid className="userShowIcon" />
+              <span className="userShowInfoTitle">+1 123 456 67</span>
             </div>
-            <div className={classes.userShwoInfo}>
-              <PhoneOutlined />
-              <span className={classes.userShwoInfoTitle}>01911612755</span>
+            <div className="userShowInfo">
+              <MailOutline className="userShowIcon" />
+              <span className="userShowInfoTitle">annabeck99@gmail.com</span>
+            </div>
+            <div className="userShowInfo">
+              <LocationSearching className="userShowIcon" />
+              <span className="userShowInfoTitle">New York | USA</span>
             </div>
           </div>
         </div>
-        <div className={classes.userUpdate}>
-          <span className={classes.userUpdateTitle}>Edit</span>
-          <form className={classes.userUpdateForm} autoComplete="off">
-            <div className={classes.userUpdateLeft}>
-              <div className={classes.userUpdateItem}>
-                <label htmlFor="username">User Name</label>
+        <div className="userUpdate">
+          <span className="userUpdateTitle">Edit</span>
+          <form className="userUpdateForm">
+            <div className="userUpdateLeft">
+              <div className="userUpdateItem">
+                <label>Username</label>
                 <input
-                  name="username"
                   type="text"
-                  placeholder="nasir"
-                  className={classes.userUpdateInput}
+                  placeholder="annabeck99"
+                  className="userUpdateInput"
                 />
               </div>
-              <div className={classes.userUpdateItem}>
-                <label htmlFor="username">Full Name</label>
+              <div className="userUpdateItem">
+                <label>Full Name</label>
                 <input
-                  name="username"
                   type="text"
-                  placeholder="Nasir Ahmed"
-                  className={classes.userUpdateInput}
+                  placeholder="Anna Becker"
+                  className="userUpdateInput"
                 />
               </div>
-              <div className={classes.userUpdateItem}>
-                <label htmlFor="dob">Date of Birth</label>
+              <div className="userUpdateItem">
+                <label>Email</label>
                 <input
-                  name="dob"
                   type="text"
-                  placeholder="01-Dec-2020"
-                  className={classes.userUpdateInput}
+                  placeholder="annabeck99@gmail.com"
+                  className="userUpdateInput"
                 />
               </div>
-
-              <div className={classes.userUpdateItem}>
-                <label htmlFor="email">Email</label>
+              <div className="userUpdateItem">
+                <label>Phone</label>
                 <input
-                  name="email"
-                  type="email"
-                  placeholder="nasir@mail.com"
-                  className={classes.userUpdateInput}
+                  type="text"
+                  placeholder="+1 123 456 67"
+                  className="userUpdateInput"
                 />
               </div>
-              <div className={classes.userUpdateItem}>
-                <label htmlFor="phone">Phone</label>
+              <div className="userUpdateItem">
+                <label>Address</label>
                 <input
-                  name="phone"
                   type="text"
-                  placeholder="01911612755"
-                  className={classes.userUpdateInput}
+                  placeholder="New York | USA"
+                  className="userUpdateInput"
                 />
               </div>
             </div>
-            <div className={classes.userUpdateRight}>
-              <div className={classes.userUpdateUpload}>
+            <div className="userUpdateRight">
+              <div className="userUpdateUpload">
                 <img
-                  src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
-                  alt="user"
-                  className={classes.userUpdateAvatar}
+                  className="userUpdateImg"
+                  src="https://images.pexels.com/photos/1152994/pexels-photo-1152994.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
+                  alt=""
                 />
-                <label htmlFor="upload">
-                  <Upload className={classes.uploadIcon} />
+                <label htmlFor="file">
+                  <Publish className="userUpdateIcon" />
                 </label>
-                <input id="upload" type="file" className={classes.userUpdatorInput} />
+                <input type="file" id="file" style={{ display: "none" }} />
               </div>
-              <button type="button" className={classes.userUpdateBtn}>
-                Update
-              </button>
+              <button className="userUpdateButton">Update</button>
             </div>
           </form>
         </div>
       </div>
     </div>
   );
-};
-
-export default User;
+}

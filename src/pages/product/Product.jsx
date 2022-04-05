@@ -1,100 +1,119 @@
-/**
- * Title: Single product
- * Description: Single Product
- * Author: Nasir Ahmed
- * Date: 01-January-2022
- * Modified: 01-January-2022
- * */
+import { Link, useLocation } from "react-router-dom";
+import "./product.css";
+import Chart from "../../components/chart/Chart";
+import { productData } from "../../dummyData";
+import { Publish } from "@material-ui/icons";
+import { useSelector } from "react-redux";
+import { useEffect, useMemo, useState } from "react";
+import { userRequest } from "../../requestMethods";
 
-import { Publish } from '@mui/icons-material';
-import React from 'react';
-import { Link } from 'react-router-dom';
-import Rechart from '../../components/chart/Rechart';
-import { productAnalytics } from '../../fake-data/product';
-import classes from './Product.module.css';
+export default function Product() {
+  const location = useLocation();
+  const productId = location.pathname.split("/")[2];
+  const [pStats, setPStats] = useState([]);
 
-const Product = function () {
+  const product = useSelector((state) =>
+    state.product.products.find((product) => product._id === productId)
+  );
+
+  const MONTHS = useMemo(
+    () => [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Agu",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
+    ],
+    []
+  );
+
+  useEffect(() => {
+    const getStats = async () => {
+      try {
+        const res = await userRequest.get("orders/income?pid=" + productId);
+        const list = res.data.sort((a,b)=>{
+            return a._id - b._id
+        })
+        list.map((item) =>
+          setPStats((prev) => [
+            ...prev,
+            { name: MONTHS[item._id - 1], Sales: item.total },
+          ])
+        );
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getStats();
+  }, [productId, MONTHS]);
+
   return (
-    <div className={classes.product}>
-      <div className={classes.productTitleContainer}>
-        <h1 className={classes.productTitle}>Product</h1>
-        <Link to="/newProduct">
-          <button type="button" className={classes.productAddBtn}>
-            Create
-          </button>
+    <div className="product">
+      <div className="productTitleContainer">
+        <h1 className="productTitle">Product</h1>
+        <Link to="/newproduct">
+          <button className="productAddButton">Create</button>
         </Link>
       </div>
-      <div className={classes.productTop}>
-        <div className={classes.productTopLeft}>
-          <Rechart title="Sales Performance" data={productAnalytics} dataKey="Sales" />
+      <div className="productTop">
+        <div className="productTopLeft">
+          <Chart data={pStats} dataKey="Sales" title="Sales Performance" />
         </div>
-        <div className={classes.productTopRight}>
-          <div className={classes.productInfoTop}>
-            <img
-              src="https://images.pexels.com/photos/788946/pexels-photo-788946.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
-              alt="Apple Airpods"
-              className={classes.productInfoImage}
-            />
-            <span className={classes.productName}>Apple Airpods</span>
+        <div className="productTopRight">
+          <div className="productInfoTop">
+            <img src={product.img} alt="" className="productInfoImg" />
+            <span className="productName">{product.title}</span>
           </div>
-          <div className={classes.productInfoBottom}>
-            <div className={classes.productInfoItem}>
-              <span className={classes.productInfoKey}>id:</span>
-              <span className={classes.productInfoValue}>123</span>
+          <div className="productInfoBottom">
+            <div className="productInfoItem">
+              <span className="productInfoKey">id:</span>
+              <span className="productInfoValue">{product._id}</span>
             </div>
-            <div className={classes.productInfoItem}>
-              <span className={classes.productInfoKey}>sales:</span>
-              <span className={classes.productInfoValue}>1237</span>
+            <div className="productInfoItem">
+              <span className="productInfoKey">sales:</span>
+              <span className="productInfoValue">5123</span>
             </div>
-            <div className={classes.productInfoItem}>
-              <span className={classes.productInfoKey}>active:</span>
-              <span className={classes.productInfoValue}>yes</span>
-            </div>
-            <div className={classes.productInfoItem}>
-              <span className={classes.productInfoKey}>in stock:</span>
-              <span className={classes.productInfoValue}>no</span>
+            <div className="productInfoItem">
+              <span className="productInfoKey">in stock:</span>
+              <span className="productInfoValue">{product.inStock}</span>
             </div>
           </div>
         </div>
       </div>
-      <div className={classes.productBottom}>
-        <form className={classes.productForm}>
-          <div className={classes.productFormLeft}>
-            <label htmlFor="productname">Product Name</label>
-            <input type="text" name="productname" id="productname" placeholder="Apple Airpods" />
-
-            <label htmlFor="instock">Product Name</label>
-            <select name="instock" id="instock" defaultValue="yes">
-              <option value="yes">Yes</option>
-              <option value="no">No</option>
-            </select>
-
-            <label htmlFor="status">Product Name</label>
-            <select name="status" id="status" defaultValue="yes">
-              <option value="yes">Yes</option>
-              <option value="no">No</option>
+      <div className="productBottom">
+        <form className="productForm">
+          <div className="productFormLeft">
+            <label>Product Name</label>
+            <input type="text" placeholder={product.title} />
+            <label>Product Description</label>
+            <input type="text" placeholder={product.desc} />
+            <label>Price</label>
+            <input type="text" placeholder={product.price} />
+            <label>In Stock</label>
+            <select name="inStock" id="idStock">
+              <option value="true">Yes</option>
+              <option value="false">No</option>
             </select>
           </div>
-          <div className={classes.productFormRight}>
-            <div className={classes.productUpload}>
-              <img
-                src="https://images.pexels.com/photos/788946/pexels-photo-788946.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
-                alt="product"
-                className={classes.productUploadImg}
-              />
-              <label htmlFor="file">
+          <div className="productFormRight">
+            <div className="productUpload">
+              <img src={product.img} alt="" className="productUploadImg" />
+              <label for="file">
                 <Publish />
               </label>
-              <input type="file" name="file" id="file" style={{ display: 'none' }} />
+              <input type="file" id="file" style={{ display: "none" }} />
             </div>
-            <button type="button" className={classes.productButton}>
-              Upldate
-            </button>
+            <button className="productButton">Update</button>
           </div>
         </form>
       </div>
     </div>
   );
-};
-
-export default Product;
+}

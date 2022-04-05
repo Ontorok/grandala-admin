@@ -1,79 +1,54 @@
-/**
- * Title: User Form
- * Description: User Form
- * Author: Nasir Ahmed
- * Date: 01-January-2022
- * Modified: 01-January-2022
- * */
+import "./newUser.css";
 
-import React from 'react';
-import classes from './NewUser.module.css';
-
-const NewUser = function () {
+export default function NewUser() {
   return (
-    <div className={classes.newUser}>
-      <h1 className={classes.newUserTitle}>New User</h1>
-      <form className={classes.newUserForm} autoComplete="off">
-        <div className={classes.newUserFormItem}>
-          <label htmlFor="username">User Name</label>
-          <input type="text" placeholder="jhon" name="username" />
+    <div className="newUser">
+      <h1 className="newUserTitle">New User</h1>
+      <form className="newUserForm">
+        <div className="newUserItem">
+          <label>Username</label>
+          <input type="text" placeholder="john" />
         </div>
-
-        <div className={classes.newUserFormItem}>
-          <label htmlFor="fullname">Full Name</label>
-          <input type="text" placeholder="Jhon Smith" name="fullname" />
+        <div className="newUserItem">
+          <label>Full Name</label>
+          <input type="text" placeholder="John Smith" />
         </div>
-
-        <div className={classes.newUserFormItem}>
-          <label htmlFor="email">Email</label>
-          <input type="email" placeholder="jhon@mail.com" name="email" />
+        <div className="newUserItem">
+          <label>Email</label>
+          <input type="email" placeholder="john@gmail.com" />
         </div>
-
-        <div className={classes.newUserFormItem}>
-          <label htmlFor="password">Password</label>
-          <input type="password" placeholder="password" name="password" />
+        <div className="newUserItem">
+          <label>Password</label>
+          <input type="password" placeholder="password" />
         </div>
-
-        <div className={classes.newUserFormItem}>
-          <label htmlFor="phone">Phone</label>
-          <input type="password" placeholder="+88 01911612755" name="phone" />
+        <div className="newUserItem">
+          <label>Phone</label>
+          <input type="text" placeholder="+1 123 456 78" />
         </div>
-
-        <div className={classes.newUserFormItem}>
-          <label htmlFor="address">Address</label>
-          <input type="password" placeholder="Chittagong | Bangladesh" name="address" />
+        <div className="newUserItem">
+          <label>Address</label>
+          <input type="text" placeholder="New York | USA" />
         </div>
-
-        <div className={classes.newUserFormItem}>
-          <span>Gender</span>
-
-          <div className={classes.newUserGenderContainer}>
-            <input type="radio" name="gender" value="Male" id="male" />
-            <label htmlFor="male">Male</label>
-
-            <input type="radio" name="gender" value="Female" id="female" />
-            <label htmlFor="female">Female</label>
-
-            <input type="radio" name="gender" value="Other" id="other" />
-            <label htmlFor="other">Other</label>
+        <div className="newUserItem">
+          <label>Gender</label>
+          <div className="newUserGender">
+            <input type="radio" name="gender" id="male" value="male" />
+            <label for="male">Male</label>
+            <input type="radio" name="gender" id="female" value="female" />
+            <label for="female">Female</label>
+            <input type="radio" name="gender" id="other" value="other" />
+            <label for="other">Other</label>
           </div>
         </div>
-
-        <div className={classes.newUserFormItem}>
-          <label htmlFor="active">Active</label>
-          <select name="active" id="active" className={classes.newUserStatus}>
-            <option value="Yes">Yes</option>
-            <option value="No">No</option>
+        <div className="newUserItem">
+          <label>Active</label>
+          <select className="newUserSelect" name="active" id="active">
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
           </select>
         </div>
-        <div className={classes.newUserFormItem}>
-          <button type="submit" className={classes.newUserButton}>
-            Save
-          </button>
-        </div>
+        <button className="newUserButton">Create</button>
       </form>
     </div>
   );
-};
-
-export default NewUser;
+}

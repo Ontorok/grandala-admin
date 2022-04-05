@@ -1,29 +1,28 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import './app.css';
-import Home from './pages/home/Home';
-import Login from './pages/login/Login';
-import NewProduct from './pages/newProduct/NewProduct';
-import NewUser from './pages/newUser/NewUser';
-import Product from './pages/product/Product';
-import ProductList from './pages/productList/ProductList';
-import User from './pages/user/User';
-import Sidebar from './parts/sidebar/Sidebar';
-import Topbar from './parts/topbar/Topbar';
-import UserList from './parts/userList/UserList';
+import { useSelector } from "react-redux";
+import {
+  BrowserRouter as Router, Route, Switch
+} from "react-router-dom";
+import "./App.css";
+import Sidebar from "./components/sidebar/Sidebar";
+import Topbar from "./components/topbar/Topbar";
+import Home from "./pages/home/Home";
+import Login from "./pages/login/Login";
+import NewProduct from "./pages/newProduct/NewProduct";
+import NewUser from "./pages/newUser/NewUser";
+import Product from "./pages/product/Product";
+import ProductList from "./pages/productList/ProductList";
+import User from "./pages/user/User";
+import UserList from "./pages/userList/UserList";
 
-const App = function () {
-  const {
-    currentUser: { isAdmin }
-  } = JSON.parse(JSON.parse(localStorage.getItem('persist:root')).user);
-
+function App() {
+  const admin = useSelector((state) => state?.user?.currentUser?.isAdmin);
   return (
     <Router>
       <Switch>
-        <Route exact path="/login">
+        <Route path="/login">
           <Login />
         </Route>
-        {isAdmin && (
+        {admin && (
           <>
             <Topbar />
             <div className="container">
@@ -34,7 +33,7 @@ const App = function () {
               <Route path="/users">
                 <UserList />
               </Route>
-              <Route path="/users/:userId">
+              <Route path="/user/:userId">
                 <User />
               </Route>
               <Route path="/newUser">
@@ -46,7 +45,7 @@ const App = function () {
               <Route path="/product/:productId">
                 <Product />
               </Route>
-              <Route path="/newProduct">
+              <Route path="/newproduct">
                 <NewProduct />
               </Route>
             </div>
@@ -54,24 +53,7 @@ const App = function () {
         )}
       </Switch>
     </Router>
-
-    // <div>
-    //   <Topbar />
-    //   <div className="container">
-    //     <Sidebar />
-    //     <Routes>
-    //       <Route path="/" element={<Home />} />
-    //       <Route path="/login" element={<Login />} />
-    //       <Route path="/users" element={<UserList />} />
-    //       <Route path="/newUser" element={<NewUser />} />
-    //       <Route path="/users/:userId" element={<User />} />
-    //       <Route path="/products" element={<ProductList />} />
-    //       <Route path="/product/:productId" element={<Product />} />
-    //       <Route path="/newProduct" element={<NewProduct />} />
-    //     </Routes>
-    //   </div>
-    // </div>
   );
-};
+}
 
 export default App;
